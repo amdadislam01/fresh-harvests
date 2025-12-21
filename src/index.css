@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Questrial&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  font-family: var(--Questrial-font);
+}
+
+:root {
+  --Questrial-font: "Questrial", sans-serif;
+  --Rubik-font: "Rubik", sans-serif;
+}
+
+.questrial-font {
+  font-family: var(--Questrial-font);
+}
+.rubik-font {
+  font-family: var(--Rubik-font);
+}
+
