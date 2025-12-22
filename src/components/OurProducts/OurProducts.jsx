@@ -3,7 +3,6 @@ import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import group1 from "../../assets/Group-1.png";
 
-// Fetch categories from API
 const fetchCategories = async () => {
   const res = await fetch("/api/api/v1/category");
   if (!res.ok) throw new Error("Failed to fetch categories");
@@ -46,7 +45,7 @@ const OurProducts = () => {
           .slice(0, 8);
 
   return (
-    <section className="pt-16 relative">
+    <section className="pt-16">
       <div className="absolute right-4 -bottom-26 md:right-46">
         <img src={group1} alt="" />
       </div>

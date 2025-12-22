@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import group1 from "../../assets/Group-1.png";
 
 // Fetch categories from API
 const fetchCategories = async () => {
@@ -45,14 +44,7 @@ const Shop = () => {
           .filter((p) => p.categoryName === activeCategory);
 
   return (
-    <section className="py-16 relative">
-      <div className="absolute right-4 -bottom-26 md:right-46">
-        <img src={group1} alt="" />
-      </div>
-      <div className="absolute left-4 -bottom-28 md:left-26 md:-bottom-60 rotate-60">
-        <img src={group1} alt="" />
-      </div>
-
+    <section className="py-16">
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 pt-12">
         <div className="text-center mb-10">
           <span className="inline-block bg-[#f1f5ec] rubik-font text-[#749b3f] text-md font-semibold px-4 py-2 rounded-md mb-3">
