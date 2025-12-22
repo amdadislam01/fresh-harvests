@@ -51,7 +51,7 @@ const OfferFruits = () => {
                     </div>
                 </div>
                 <img src={group3} alt="" className='absolute right-[15%] top-[23%] md:block hidden'/>
-                <img src={frutis} alt="" className='absolute right-[10%] top-[25%] w-[600px] h-[380px] md:block hidden' />
+                <img src={frutis} alt="" className='absolute right-[10%] top-[25%] w-[627px] h-[380px] md:block hidden' />
             </div>
        </section>
     );

@@ -19,3 +19,12 @@
   font-family: var(--Rubik-font);
 }
 
+.testimonial-swiper .swiper-pagination-bullet {
+   width: 12px;
+  height: 12px;
+  background-color: #a9abad;
+}
+
+.testimonial-swiper .swiper-pagination-bullet-active {
+  background-color: #749b3f;
+}

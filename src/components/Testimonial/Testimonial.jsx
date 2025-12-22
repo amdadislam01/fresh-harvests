@@ -43,6 +43,7 @@ const Testimonial = () => {
       />
 
       <Swiper
+      className="testimonial-swiper"
         modules={[Autoplay, Pagination]}
         autoplay={{ delay: 3000 }}
         loop
@@ -51,7 +52,24 @@ const Testimonial = () => {
         }}
       >
         <SwiperSlide>
-          <div className="md:flex items-center justify-center gap-34 mt-24 ml-4">
+          <div className="md:flex items-center justify-center gap-34 mt-24 ml-4 mb-16 md:mb-30">
+            <img src={test1} alt="" />
+            <div className="bg-[#f4f6f6] w-[330px] md:w-[643px] rounded-2xl p-4 md:p-12 md:mt-0 mt-6">
+              <p className="w-[300px] md:w-[500px] text-md md:text-xl text-gray-600 ">
+                "I absolutely love Fresh Harvest! The quality of their produce
+                is outstanding. It's always fresh, flavorful, and delicious. The
+                convenience of ordering online and having it delivered to my
+                doorstep saves me so much time. Fresh Harvest has become my
+                go-to for all my fruit and vegetable needs.
+              </p>
+              <h2 className="mt-6 rubik-font text-md">
+                <span className="font-bold">Jane Doe -</span> Professional chef
+              </h2>
+            </div>
+          </div>
+        </SwiperSlide>
+        <SwiperSlide>
+          <div className="md:flex items-center justify-center gap-34 mt-24 ml-4 mb-16 md:mb-30">
             <img src={test1} alt="" />
             <div className="bg-[#f4f6f6] w-[330px] md:w-[643px] rounded-2xl p-4 md:p-12 md:mt-0 mt-6">
               <p className="w-[300px] md:w-[500px] text-md md:text-xl text-gray-600">
@@ -68,24 +86,7 @@ const Testimonial = () => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="md:flex items-center justify-center gap-34 mt-24 ml-4">
-            <img src={test1} alt="" />
-            <div className="bg-[#f4f6f6] w-[330px] md:w-[643px] rounded-2xl p-4 md:p-12 md:mt-0 mt-6">
-              <p className="w-[300px] md:w-[500px] text-md md:text-xl text-gray-600">
-                "I absolutely love Fresh Harvest! The quality of their produce
-                is outstanding. It's always fresh, flavorful, and delicious. The
-                convenience of ordering online and having it delivered to my
-                doorstep saves me so much time. Fresh Harvest has become my
-                go-to for all my fruit and vegetable needs.
-              </p>
-              <h2 className="mt-6 rubik-font text-md">
-                <span className="font-bold">Jane Doe -</span> Professional chef
-              </h2>
-            </div>
-          </div>
-        </SwiperSlide>
-        <SwiperSlide>
-          <div className="md:flex items-center justify-center gap-34 mt-24 ml-4">
+          <div className="md:flex items-center justify-center gap-34 mt-24 ml-4 mb-16 md:mb-30">
             <img src={test1} alt="" />
             <div className="bg-[#f4f6f6] w-[330px] md:w-[643px] rounded-2xl p-4 md:p-12 md:mt-0 mt-6">
               <p className="w-[300px] md:w-[500px] text-md md:text-xl text-gray-600">
