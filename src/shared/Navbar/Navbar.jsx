@@ -3,14 +3,32 @@ import logo from "../../assets/Logo.png";
 import { FaCartArrowDown } from "react-icons/fa";
 import { IoMdHeart } from "react-icons/io";
 import { TiThMenu } from "react-icons/ti";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import AuthModal from "../../auth/AuthModal/AuthModal";
+import axiosPublic from "../../api/axiosPublic";
+import { toast } from "react-toastify";
 
+const getEmailFromToken = () => {
+  const token = localStorage.getItem("access-token");
+  if (!token) return null;
+
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return payload.email;
+  } catch {
+    return null;
+  }
+};
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    !!localStorage.getItem("access-token")
+  );
+  const [userRole, setUserRole] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -18,81 +36,103 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const email = getEmailFromToken();
+    if (!email) {
+      return;
+    }
+
+    axiosPublic
+      .get(`/users?email=${email}`)
+      .then((res) => {
+        const user = res?.data?.data?.data?.[0];
+        setIsLoggedIn(true);
+        setUserRole(user.role);
+      })
+      .catch(() => {
+        localStorage.removeItem("access-token");
+        setIsLoggedIn(false);
+        setUserRole(null);
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("access-token");
+    setIsLoggedIn(false);
+    setUserRole(null);
+    toast.warning("You have successfully logged out!");
+  };
+
   return (
     <div className="fixed w-screen top-0 left-0 z-50">
       <div
         className={`absolute inset-0 transition-all duration-300 ${
-          isScrolled ? "backdrop-blur bg-white/50 shadow-md" : "bg-transparent"
+          isScrolled ? "backdrop-blur bg-white/60 shadow-md" : "bg-transparent"
         }`}
       ></div>
 
       <header className="relative">
         <nav className="py-4">
           <div className="max-w-[1400px] mx-auto px-4 md:px-8 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <img src={logo} alt="logo" className="w-8" />
-              <h1 className="text-xl font-extrabold text-gray-800">
-                Fresh Harvests
-              </h1>
-            </div>
+            <Link to={"/"}>
+              <div className="flex items-center gap-2">
+                <img src={logo} alt="logo" className="w-8" />
+                <h1 className="text-2xl font-extrabold text-gray-800 rubik-font">
+                  Fresh Harvests
+                </h1>
+              </div>
+            </Link>
 
             <ul className="hidden md:flex items-center gap-12 text-gray-600 font-medium">
               <NavLink
                 to="/"
                 className={({ isActive }) =>
-                  `relative cursor-pointer ${
-                    isActive
-                      ? "text-green-600 font-semibold"
-                      : "hover:text-green-600"
+                  `hover:text-green-600 pb-1 ${
+                    isActive ? "border-b-2 border-green-600 text-green-600" : ""
                   }`
                 }
               >
                 Home
-                <span className="absolute left-1/2 -bottom-2 w-4 h-1 bg-green-600 rounded-full -translate-x-1/2"></span>
               </NavLink>
-
               <NavLink
                 to="/shop"
                 className={({ isActive }) =>
-                  isActive
-                    ? "text-green-600 font-semibold cursor-pointer"
-                    : "hover:text-green-600 cursor-pointer"
+                  `hover:text-green-600 pb-1 ${
+                    isActive ? "border-b-2 border-green-600 text-green-600" : ""
+                  }`
                 }
               >
                 Shop
               </NavLink>
-
               <NavLink
                 to="/about"
                 className={({ isActive }) =>
-                  isActive
-                    ? "text-green-600 font-semibold cursor-pointer"
-                    : "hover:text-green-600 cursor-pointer"
+                  `hover:text-green-600 pb-1 ${
+                    isActive ? "border-b-2 border-green-600 text-green-600" : ""
+                  }`
                 }
               >
                 About us
               </NavLink>
-
               <NavLink
                 to="/blog"
                 className={({ isActive }) =>
-                  isActive
-                    ? "text-green-600 font-semibold cursor-pointer"
-                    : "hover:text-green-600 cursor-pointer"
+                  `hover:text-green-600 pb-1 ${
+                    isActive ? "border-b-2 border-green-600 text-green-600" : ""
+                  }`
                 }
               >
                 Blog
               </NavLink>
             </ul>
 
-            <div className="hidden md:flex items-center gap-6 text-gray-700">
+            <div className="hidden md:flex items-center gap-6">
               <span className="flex items-center gap-2 cursor-pointer">
                 <IoMdHeart /> Favorites
               </span>
 
-              <div
-                className="flex items-center gap-3 cursor-pointer relative text-gray-900"
-              >
+              <div className="relative flex items-center gap-2 cursor-pointer">
                 <FaCartArrowDown />
                 <span className="absolute -top-2 left-3 bg-red-500 text-white text-xs px-1 rounded-full">
                   3
@@ -100,99 +140,137 @@ const Navbar = () => {
                 Cart
               </div>
 
-              <button onClick={() => setModalOpen(true)}
-                className="border px-5 py-2 rounded-md font-bold rubik-font text-gray-900 cursor-pointer" 
-              >
-                Sign in
-              </button>
-               <AuthModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+              {isLoggedIn && userRole === "ADMIN" && (
+                <NavLink
+                  to="/dashboard/product-added"
+                  className="px-4 py-2 rounded-md bg-green-600 text-white font-bold rubik-font"
+                >
+                  Admin
+                </NavLink>
+              )}
+
+              {isLoggedIn ? (
+                <button
+                  onClick={handleLogout}
+                  className="px-5 py-2 rounded-md font-bold bg-red-600 text-white rubik-font"
+                >
+                  Sign out
+                </button>
+              ) : (
+                <button
+                  onClick={() => setModalOpen(true)}
+                  className="border px-5 py-2 rounded-md font-bold rubik-font"
+                >
+                  Sign in
+                </button>
+              )}
             </div>
 
             <div className="md:hidden flex items-center gap-4">
-              <div className="relative cursor-pointer text-xl">
-                <FaCartArrowDown
-                  className="text-gray-800"
-                />
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-1 rounded-full">
-                  3
-                </span>
-              </div>
-
-              <button
-                onClick={() => setMenuOpen(!menuOpen)}
-                className="text-2xl text-gray-800"
-              >
-                <TiThMenu
-                  className="text-gray-800 cursor-pointer"
-                />
+              <FaCartArrowDown />
+              <button onClick={() => setMenuOpen(!menuOpen)}>
+                <TiThMenu className="text-2xl" />
               </button>
             </div>
           </div>
 
           {menuOpen && (
-            <div className="md:hidden mt-4 bg-white shadow-lg rounded-lg mx-4 p-5 space-y-4">
+            <div className="md:hidden fixed top-18 left-0 right-0 z-50 bg-white shadow-lg rounded-b-xl mx-4 py-6 px-4 space-y-4">
               <NavLink
                 to="/"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-green-600 font-semibold block"
-                    : "hover:text-green-600 block"
-                }
                 onClick={() => setMenuOpen(false)}
+                className={({ isActive }) =>
+                  `block text-lg font-medium pl-3 ${
+                    isActive
+                      ? "border-l-4 border-green-600 text-green-600 bg-green-50"
+                      : "border-l-4 border-transparent"
+                  }`
+                }
               >
                 Home
               </NavLink>
 
               <NavLink
                 to="/shop"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-green-600 font-semibold block"
-                    : "hover:text-green-600 block"
-                }
                 onClick={() => setMenuOpen(false)}
+                className={({ isActive }) =>
+                  `block text-lg font-medium pl-3 ${
+                    isActive
+                      ? "border-l-4 border-green-600 text-green-600 bg-green-50"
+                      : "border-l-4 border-transparent"
+                  }`
+                }
               >
                 Shop
               </NavLink>
 
               <NavLink
                 to="/about"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-green-600 font-semibold block"
-                    : "hover:text-green-600 block"
-                }
                 onClick={() => setMenuOpen(false)}
+                className={({ isActive }) =>
+                  `block text-lg font-medium pl-3 ${
+                    isActive
+                      ? "border-l-4 border-green-600 text-green-600 bg-green-50"
+                      : "border-l-4 border-transparent"
+                  }`
+                }
               >
                 About us
               </NavLink>
 
               <NavLink
                 to="/blog"
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-green-600 font-semibold block"
-                    : "hover:text-green-600 block"
-                }
                 onClick={() => setMenuOpen(false)}
+                className={({ isActive }) =>
+                  `block text-lg font-medium pl-3 ${
+                    isActive
+                      ? "border-l-4 border-green-600 text-green-600 bg-green-50"
+                      : "border-l-4 border-transparent"
+                  }`
+                }
               >
                 Blog
               </NavLink>
 
-              <hr className="text-gray-300" />
+              {isLoggedIn && userRole === "ADMIN" && (
+                <NavLink
+                  to="/dashboard/product-added"
+                  onClick={() => setMenuOpen(false)}
+                  className="block text-lg font-bold text-green-600 rubik-font"
+                >
+                  Admin
+                </NavLink>
+              )}
 
-              <div className="flex items-center gap-2">
-                <IoMdHeart /> Favorites
-              </div>
+              <hr className="my-4" />
 
-              <button onClick={() => setModalOpen(true)} className="w-full border border-gray-300 py-2 rounded-md font-bold cursor-pointer">
-                Sign in
-              </button>
-              <AuthModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+              {isLoggedIn ? (
+                <button
+                  onClick={handleLogout}
+                  className="w-full border border-red-400 text-red-600 py-2 rounded-md font-bold rubik-font"
+                >
+                  Sign out
+                </button>
+              ) : (
+                <button
+                  onClick={() => setModalOpen(true)}
+                  className="w-full border border-gray-400 py-2 rounded-md font-bold rubik-font"
+                >
+                  Sign in
+                </button>
+              )}
             </div>
           )}
         </nav>
       </header>
+
+      <AuthModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        setIsLoggedIn={setIsLoggedIn}
+        setLoading={setLoading}
+        setUserRole={setUserRole}
+      />
     </div>
   );
 };

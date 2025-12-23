@@ -20,7 +20,7 @@ const fetchAllProducts = async () => {
     name: p.productName,
     price: p.price,
     image: p.images,
-    categoryName: p.category.categoryName, 
+    categoryName: p.category.categoryName,
   }));
 };
 
@@ -28,11 +28,15 @@ const OurProducts = () => {
   const [activeCategory, setActiveCategory] = useState("All");
 
   const { data: categories = [] } = useQuery({
-    queryKey: ["categories"],
+    queryKey: ["homeCategories"],
     queryFn: fetchCategories,
   });
 
-  const { data: allProducts = [], isLoading, isError } = useQuery({
+  const {
+    data: allProducts = [],
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["allProducts"],
     queryFn: fetchAllProducts,
   });
@@ -84,10 +88,14 @@ const OurProducts = () => {
         </div>
 
         {isLoading && (
-          <div className="text-center text-gray-500 text-lg">Loading products...</div>
+          <div className="text-center text-gray-500 text-lg">
+            Loading products...
+          </div>
         )}
         {isError && (
-          <div className="text-center text-red-500 text-lg">Failed to load products</div>
+          <div className="text-center text-red-500 text-lg">
+            Failed to load products
+          </div>
         )}
 
         {!isLoading && !isError && (
@@ -107,8 +115,12 @@ const OurProducts = () => {
                   </div>
                 </Link>
 
-                <h3 className="font-semibold text-gray-800 rubik-font">{product.name}</h3>
-                <p className="text-gray-500 text-sm mb-4">${product.price}/kg</p>
+                <h3 className="font-semibold text-gray-800 rubik-font">
+                  {product.name}
+                </h3>
+                <p className="text-gray-500 text-sm mb-4">
+                  ${product.price}/kg
+                </p>
 
                 <button className="w-full py-2 rounded-md text-md border transition rubik-font border-gray-300 hover:bg-[#FF6A1A] hover:text-white">
                   Add to cart
@@ -119,7 +131,10 @@ const OurProducts = () => {
         )}
 
         <div className="text-center mt-12">
-          <Link to={'/shop'} className="px-8 py-3 border border-orange-500 text-orange-500 rounded-md hover:bg-[#FF6A1A] hover:text-white transition">
+          <Link
+            to={"/shop"}
+            className="px-8 py-3 border border-orange-500 text-orange-500 rounded-md hover:bg-[#FF6A1A] hover:text-white transition"
+          >
             See All Products
           </Link>
         </div>

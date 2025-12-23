@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Questrial&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
 @import "tailwindcss";
 
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, cupcake;
+}
+
 * {
   box-sizing: border-box;
   scroll-behavior: smooth;

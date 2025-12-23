@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 
-// Fetch categories from API
 const fetchCategories = async () => {
   const res = await fetch("/api/api/v1/category");
   if (!res.ok) throw new Error("Failed to fetch categories");
