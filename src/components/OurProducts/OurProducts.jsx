@@ -2,20 +2,16 @@ import React, { useState } from "react";
 import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import group1 from "../../assets/Group-1.png";
+import axiosPublic from "../../api/axiosPublic";
 
 const fetchCategories = async () => {
-  const res = await fetch("/api/api/v1/category");
-  if (!res.ok) throw new Error("Failed to fetch categories");
-
-  const data = await res.json();
-  return ["All", ...data.data.map((c) => c.categoryName)];
+  const res = await axiosPublic.get("/category");  
+  return ["All", ...res.data.data.map((c) => c.categoryName)];
 };
 
 const fetchAllProducts = async () => {
-  const res = await fetch("/api/api/v1/products?status=active");
-  if (!res.ok) throw new Error("Failed to fetch products");
-  const data = await res.json();
-  return data.data.map((p) => ({
+  const res = await axiosPublic.get("/products?status=active");
+  return res.data.data.map((p) => ({
     _id: p.id,
     name: p.productName,
     price: p.price,
@@ -23,7 +19,6 @@ const fetchAllProducts = async () => {
     categoryName: p.category.categoryName,
   }));
 };
-
 const OurProducts = () => {
   const [activeCategory, setActiveCategory] = useState("All");
 
