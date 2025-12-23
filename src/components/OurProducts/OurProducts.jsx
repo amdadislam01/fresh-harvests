@@ -5,7 +5,7 @@ import group1 from "../../assets/Group-1.png";
 import axiosPublic from "../../api/axiosPublic";
 
 const fetchCategories = async () => {
-  const res = await axiosPublic.get("/category");  
+  const res = await axiosPublic.get("/category"); 
   return ["All", ...res.data.data.map((c) => c.categoryName)];
 };
 
@@ -15,7 +15,7 @@ const fetchAllProducts = async () => {
     _id: p.id,
     name: p.productName,
     price: p.price,
-    image: p.images,
+    image: p.images[0] || p.images, 
     categoryName: p.category.categoryName,
   }));
 };

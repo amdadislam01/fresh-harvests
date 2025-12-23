@@ -1,14 +1,18 @@
 import axios from "axios";
 
-const apiBase = import.meta.env.VITE_API_URL || "http://23.239.111.164:5001";
+const apiBase = import.meta.env.VITE_API_URL || "http://23.239.111.164:5001/api/v1";
+
+
+const proxy = "https://api.codetabs.com/v1/proxy?quest=";
 
 const baseURL = import.meta.env.DEV 
   ? "/api/api/v1"  
-  : `${apiBase}/api/v1`;  
+  : proxy + encodeURIComponent(apiBase);  
 
 const axiosPublic = axios.create({
   baseURL,
 });
+
 
 axiosPublic.interceptors.request.use(
   (config) => {
