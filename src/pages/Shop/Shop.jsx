@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchCategories = async () => {
-  const res = await fetch("/api/api/v1/category");
+  const res = await fetch("/api/v1/category");
   if (!res.ok) throw new Error("Failed to fetch categories");
 
   const data = await res.json();
@@ -11,7 +11,7 @@ const fetchCategories = async () => {
 };
 
 const fetchAllProducts = async () => {
-  const res = await fetch("/api/api/v1/products?status=active");
+  const res = await fetch("/api/v1/products?status=active");
   if (!res.ok) throw new Error("Failed to fetch products");
   const data = await res.json();
   return data.data.map((p) => ({

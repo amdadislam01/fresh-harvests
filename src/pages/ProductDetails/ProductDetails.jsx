@@ -11,7 +11,7 @@ const ProductDetails = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`/api/api/v1/products`);
+        const response = await fetch("/api/v1/products");
         const result = await response.json();
 
         const productData = result.data.find((p) => p.id === id);

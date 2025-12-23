@@ -9,10 +9,10 @@ export default ({ mode }) => {
     plugins: [react(), tailwindcss()],
     server: {
       proxy: {
-        "/api": {
-          target: env.VITE_API_URL, 
+        "/api/v1": {
+          target: env.VITE_API_URL || "http://23.239.111.164:5001",
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ""),
+          // No rewrite needed if we use the same path
         },
       },
     },

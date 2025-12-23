@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 
 const fetchRelatedProducts = async (categoryId, currentProductId) => {
-  const res = await fetch(`/api/api/v1/products?category=${categoryId}`);
+  const res = await fetch(`/api/v1/products?category=${categoryId}`);
   if (!res.ok) {
     throw new Error("Failed to fetch related products");
   }

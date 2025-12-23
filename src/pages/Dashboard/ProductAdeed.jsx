@@ -12,7 +12,7 @@ const ProductAdded = () => {
   const [newCategoryName, setNewCategoryName] = useState("");
 
   const axiosCategory = axios.create({
-    baseURL: "https://test-2-tan-chi.vercel.app/api/v1",
+    baseURL: "/api/v1",
   });
 
   const selectedCategory = watch("categoryId");
