@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { FaCartArrowDown, FaHeart } from "react-icons/fa";
 import RelatedProdut from "../../components/RelatedProduct/RelatedProdut";
 import { useParams } from "react-router";
+import { useCart } from "../../context/CartContext";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { addToCart } = useCart();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -99,7 +101,10 @@ const ProductDetails = () => {
                   <FaHeart />
                   Save as favorite
                 </div>
-                <div className="flex items-center gap-2 px-8 py-3 bg-orange-500 text-white rounded-lg shadow-md">
+                <div
+                  onClick={() => addToCart(product)}
+                  className="flex items-center gap-2 px-8 py-3 bg-orange-500 text-white rounded-lg shadow-md cursor-pointer"
+                >
                   <FaCartArrowDown />
                   Add to cart
                 </div>
