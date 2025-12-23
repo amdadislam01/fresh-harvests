@@ -1,14 +1,13 @@
 import axios from "axios";
 
-const apiBase = import.meta.env.VITE_API_URL || "http://23.239.111.164:5001";
+const apiBase = import.meta.env.VITE_API_URL || "http://23.239.111.164:5001/api/v1";
 
-const proxy = "https://corsproxy.io/?";
 
-const fullApiUrl = `${apiBase}/api/v1`;
+const proxy = "https://fresh-harvests-rose.vercel.app/";  
 
 const baseURL = import.meta.env.DEV 
-  ? "/api/api/v1" 
-  : proxy + encodeURIComponent(fullApiUrl); 
+  ? "/api/api/v1"
+  : proxy;  
 
 const axiosPublic = axios.create({
   baseURL,
