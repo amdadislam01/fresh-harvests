@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import axiosPublic from "../../api/axiosPublic";
 import { toast } from "react-toastify";
 
@@ -11,16 +10,12 @@ const ProductAdded = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [newCategoryName, setNewCategoryName] = useState("");
 
-  const axiosCategory = axios.create({
-    baseURL: "/api/v1",
-  });
-
   const selectedCategory = watch("categoryId");
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await axiosCategory.get("/category");
+        const res = await axiosPublic.get("/category");
         setCategories(res.data?.data || []);
       } catch (err) {
         console.log(err);
@@ -39,7 +34,7 @@ const ProductAdded = () => {
       let categoryId = data.categoryId;
 
       if (newCategoryName.trim()) {
-        const res = await axiosCategory.post("/category", {
+        const res = await axiosPublic.post("/category", {
           categoryName: newCategoryName.trim(),
         });
         categoryId = res.data?.data?.id;

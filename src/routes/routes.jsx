@@ -8,6 +8,9 @@ import ProductAdeed from "../pages/Dashboard/ProductAdeed";
 import AllProduct from "../pages/Dashboard/AllProduct";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import Cart from "../pages/Cart/Cart";
+import Blogs from "../pages/Blogs/Blogs";
+import AboutUs from "../pages/AboutUs/AboutUs";
+
 
 
 export const router = createBrowserRouter([
@@ -27,6 +30,14 @@ export const router = createBrowserRouter([
         {
           path: '/product/:id',
           element: <ProductDetails />
+        },
+        {
+          path: '/about',
+          element: <AboutUs/>
+        },
+        {
+          path: '/blog',
+          element: <Blogs/>
         },
         {
           path: '/cart',

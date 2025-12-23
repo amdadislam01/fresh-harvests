@@ -26,23 +26,36 @@ const blogData = [
     title:
       "The Art of Winter Meal Prepping: How to Save Time and Eat Healthy Throughout the Week",
   },
+  {
+    id: 4,
+    image: blog1,
+    date: "December 20, 2025",
+    title: "Exploring Winter Delights: A Guide to What's Fresh Right Now",
+  },
+  {
+    id: 5,
+    image: blog2,
+    date: "December 20, 2025",
+    title:
+      "Mastering Winter Salad Creations: Tips and Tricks for Building Delicious and Nutritious Salads",
+  },
+  {
+    id: 6,
+    image: blog3,
+    date: "December 20, 2025",
+    title:
+      "The Art of Winter Meal Prepping: How to Save Time and Eat Healthy Throughout the Week",
+  },
 ];
 
-const Blog = () => {
+const Blogs = () => {
   return (
-    <div className="min-h-screen">
+    <div className="py-16">
       <img src={group1} alt="" className="absolute right-[20%] mt-16 md:block hidden" />
       <header className="py-8 text-center">
-        <div className="inline-block rounded-md bg-[#f1f5ec] px-6 py-2 text-md font-medium text-[#749b3f] rubik-font">
-          Our Blog
-        </div>
         <h1 className="mt-4 text-4xl md:text-5xl font-bold text-gray-900 rubik-font">
           Fresh Harvest Blog
         </h1>
-        <p className="mt-6 max-w-2xl mx-auto md:text-md text-sm md:px-0 px-4 text-gray-600">
-          Welcome to the Fresh Harvest Blog, your go-to resource for all things
-          related to fresh produce, healthy eating, and culinary inspiration.
-        </p>
       </header>
 
       <section className="max-w-[1400px] mx-auto px-6 md:px-12 py-12">
@@ -77,4 +90,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default Blogs;

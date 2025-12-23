@@ -134,7 +134,10 @@ const Navbar = () => {
                 <IoMdHeart /> Favorites
               </span>
 
-              <Link to={'/cart'} className="relative flex items-center gap-2 cursor-pointer">
+              <Link
+                to={"/cart"}
+                className="relative flex items-center gap-2 cursor-pointer"
+              >
                 <FaCartArrowDown />
                 <span className="absolute -top-2 left-3 bg-red-500 text-white text-xs px-1 rounded-full">
                   {cartCount}
@@ -169,7 +172,16 @@ const Navbar = () => {
             </div>
 
             <div className="md:hidden flex items-center gap-4">
-              <FaCartArrowDown />
+              <Link
+                to={"/cart"}
+                className="relative flex items-center gap-2 cursor-pointer"
+              >
+                <FaCartArrowDown />
+                <span className="absolute -top-2 left-3 bg-red-500 text-white text-xs px-1 rounded-full">
+                  {cartCount}
+                </span>
+                Cart
+              </Link>
               <button onClick={() => setMenuOpen(!menuOpen)}>
                 <TiThMenu className="text-2xl" />
               </button>
