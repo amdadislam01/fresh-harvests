@@ -12,7 +12,6 @@ export default ({ mode }) => {
         "/api/v1": {
           target: env.VITE_API_URL || "http://23.239.111.164:5001",
           changeOrigin: true,
-          // No rewrite needed if we use the same path
         },
       },
     },

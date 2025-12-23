@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const axiosPublic = axios.create({
-  // Use relative path to leverage Vercel rewrites and avoid CORS issues in production
   baseURL: "/api/v1",
 });
 
