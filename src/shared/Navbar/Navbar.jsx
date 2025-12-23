@@ -7,6 +7,7 @@ import { Link, NavLink } from "react-router";
 import AuthModal from "../../auth/AuthModal/AuthModal";
 import axiosPublic from "../../api/axiosPublic";
 import { toast } from "react-toastify";
+import { useCart } from "../../context/CartContext";
 
 const getEmailFromToken = () => {
   const token = localStorage.getItem("access-token");
@@ -29,6 +30,7 @@ const Navbar = () => {
   );
   const [userRole, setUserRole] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { cartCount } = useCart();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -132,13 +134,13 @@ const Navbar = () => {
                 <IoMdHeart /> Favorites
               </span>
 
-              <div className="relative flex items-center gap-2 cursor-pointer">
+              <Link to={'/cart'} className="relative flex items-center gap-2 cursor-pointer">
                 <FaCartArrowDown />
                 <span className="absolute -top-2 left-3 bg-red-500 text-white text-xs px-1 rounded-full">
-                  3
+                  {cartCount}
                 </span>
                 Cart
-              </div>
+              </Link>
 
               {isLoggedIn && userRole === "ADMIN" && (
                 <NavLink

@@ -3,9 +3,10 @@ import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import group1 from "../../assets/Group-1.png";
 import axiosPublic from "../../api/axiosPublic";
+import { useCart } from "../../context/CartContext";
 
 const fetchCategories = async () => {
-  const res = await axiosPublic.get("/category");  
+  const res = await axiosPublic.get("/category");
   return ["All", ...res.data.data.map((c) => c.categoryName)];
 };
 
@@ -15,13 +16,13 @@ const fetchAllProducts = async () => {
     _id: p.id,
     name: p.productName,
     price: p.price,
-    image: p.images[0] || p.images, 
+    image: p.images[0] || p.images,
     categoryName: p.category.categoryName,
   }));
 };
 const OurProducts = () => {
   const [activeCategory, setActiveCategory] = useState("All");
-
+  const { addToCart } = useCart();
   const { data: categories = [] } = useQuery({
     queryKey: ["homeCategories"],
     queryFn: fetchCategories,
@@ -71,7 +72,7 @@ const OurProducts = () => {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-4 py-2 rounded-md border text-sm rubik-font transition ${
+              className={`px-4 py-2 rounded-md border text-sm rubik-font transition cursor-pointer ${
                 activeCategory === cat
                   ? "bg-[#749b3f] text-white border-[#749b3f]"
                   : "bg-white text-gray-600 border-gray-200 hover:bg-gray-50"
@@ -117,7 +118,10 @@ const OurProducts = () => {
                   ${product.price}/kg
                 </p>
 
-                <button className="w-full py-2 rounded-md text-md border transition rubik-font border-gray-300 hover:bg-[#FF6A1A] hover:text-white">
+                <button
+                  onClick={() => addToCart(product)}
+                  className="w-full py-2 rounded-md text-md border transition rubik-font border-gray-300 hover:bg-[#FF6A1A] hover:text-white cursor-pointer"
+                >
                   Add to cart
                 </button>
               </div>

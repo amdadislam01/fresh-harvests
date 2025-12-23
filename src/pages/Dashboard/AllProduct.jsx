@@ -63,7 +63,7 @@ const AllProduct = () => {
     <section className="min-h-screen py-8 px-4 md:py-12">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 text-center md:text-left">
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2 rubik-font">
             All Products
           </h1>
           <p className="text-gray-600">
@@ -145,7 +145,7 @@ const AllProduct = () => {
                       <button
                         onClick={() => handleDelete(p.id)}
                         disabled={deleteMutation.isPending}
-                        className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-red-700 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed"
+                        className="inline-flex items-center gap-2 rounded-lg bg-red-600 px-5 py-2.5 text-sm font-medium text-white shadow hover:bg-red-700 hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer"
                       >
                         {deleteMutation.isPending ? (
                           <>

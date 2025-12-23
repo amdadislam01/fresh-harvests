@@ -7,6 +7,7 @@ import Dashboard from "../layouts/Dashboard";
 import ProductAdeed from "../pages/Dashboard/ProductAdeed";
 import AllProduct from "../pages/Dashboard/AllProduct";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import Cart from "../pages/Cart/Cart";
 
 
 export const router = createBrowserRouter([
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
           path: '/product/:id',
           element: <ProductDetails />
         },
+        {
+          path: '/cart',
+          element: <Cart />
+        }
     ]
   },
   {

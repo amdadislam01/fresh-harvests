@@ -4,7 +4,6 @@ import { FaHome, FaProductHunt } from "react-icons/fa";
 import { MdOutlineSettings } from "react-icons/md";
 import { Link, Outlet } from "react-router";
 import { Bounce, ToastContainer } from "react-toastify";
-
 const Dashboard = () => {
   return (
     <div className="drawer lg:drawer-open">
@@ -44,7 +43,7 @@ const Dashboard = () => {
               <path d="M14 10l2 2l-2 2"></path>
             </svg>
           </label>
-          <div className="px-4 rubik-font">Fresh Harvests</div>
+          <div className="px-4 text-xl font-bold rubik-font">Fresh Harvests</div>
         </nav>
         <div className="p-4">
           <Outlet />
@@ -58,7 +57,7 @@ const Dashboard = () => {
           className="drawer-overlay"
         ></label>
         <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
-          <ul className="menu w-full grow">
+          <ul className="menu w-full grow pt-6 md:pt-12">
             <li>
               <Link
                 to={"/"}

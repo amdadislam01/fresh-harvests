@@ -77,7 +77,7 @@ const ProductAdded = () => {
     <section className="min-h-screen py-12 px-4">
       <div className="mx-auto max-w-4xl">
         <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
+          <h1 className="text-4xl font-bold text-gray-800 mb-2 rubik-font">
             Add New Product
           </h1>
           <p className="text-gray-600">Admin Only · Upload Products</p>

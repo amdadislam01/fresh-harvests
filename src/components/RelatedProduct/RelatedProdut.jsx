@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
 import { useQuery } from "@tanstack/react-query";
+import { useCart } from "../../context/CartContext";
 
 const fetchRelatedProducts = async (categoryId, currentProductId) => {
   const res = await fetch(`/api/v1/products?category=${categoryId}`);
@@ -11,7 +12,7 @@ const fetchRelatedProducts = async (categoryId, currentProductId) => {
   const data = await res.json();
 
   return data.data
-    .filter((p) => p.categoryId !== currentProductId) 
+    .filter((p) => p.categoryId !== currentProductId)
     .slice(0, 4)
     .map((p) => ({
       _id: p.id,
@@ -22,10 +23,15 @@ const fetchRelatedProducts = async (categoryId, currentProductId) => {
 };
 
 const RelatedProdut = ({ categoryId, currentProductId }) => {
-  const { data: products = [], isLoading, isError } = useQuery({
+  const { addToCart } = useCart();
+  const {
+    data: products = [],
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["related-products", categoryId],
     queryFn: () => fetchRelatedProducts(categoryId, currentProductId),
-    enabled: !!categoryId, 
+    enabled: !!categoryId,
   });
 
   return (
@@ -40,7 +46,9 @@ const RelatedProdut = ({ categoryId, currentProductId }) => {
       </div>
 
       {isLoading && (
-        <div className="text-center text-gray-500 text-lg">Loading products...</div>
+        <div className="text-center text-gray-500 text-lg">
+          Loading products...
+        </div>
       )}
       {isError && (
         <div className="text-center text-red-500 text-lg">
@@ -71,10 +79,15 @@ const RelatedProdut = ({ categoryId, currentProductId }) => {
                 </div>
               </Link>
 
-              <h3 className="font-semibold text-gray-800 rubik-font">{product.name}</h3>
+              <h3 className="font-semibold text-gray-800 rubik-font">
+                {product.name}
+              </h3>
               <p className="text-gray-500 text-sm mb-4">${product.price}/kg</p>
 
-              <button className="w-full py-2 rounded-md text-md border transition rubik-font border-gray-300 hover:bg-[#FF6A1A] hover:text-white">
+              <button
+                onClick={() => addToCart(product)}
+                className="w-full py-2 rounded-md text-md border transition rubik-font border-gray-300 hover:bg-[#FF6A1A] hover:text-white cursor-pointer"
+              >
                 Add to cart
               </button>
             </div>
