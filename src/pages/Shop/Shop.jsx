@@ -47,10 +47,10 @@ const Shop = () => {
       <div className="max-w-[1400px] mx-auto px-4 md:px-8 pt-12">
         <div className="text-center mb-10">
           <span className="inline-block bg-[#f1f5ec] rubik-font text-[#749b3f] text-md font-semibold px-4 py-2 rounded-md mb-3">
-            All Products
+            Products
           </span>
           <h2 className="text-3xl md:text-6xl font-semibold text-gray-900 mb-2 rubik-font">
-            All Products
+            Shop Products
           </h2>
         </div>
 
