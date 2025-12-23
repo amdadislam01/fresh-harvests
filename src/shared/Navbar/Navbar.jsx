@@ -152,14 +152,14 @@ const Navbar = () => {
               {isLoggedIn ? (
                 <button
                   onClick={handleLogout}
-                  className="px-5 py-2 rounded-md font-bold bg-red-600 text-white rubik-font"
+                  className="px-5 py-2 rounded-md font-bold bg-red-600 text-white rubik-font cursor-pointer"
                 >
                   Sign out
                 </button>
               ) : (
                 <button
                   onClick={() => setModalOpen(true)}
-                  className="border px-5 py-2 rounded-md font-bold rubik-font"
+                  className="border px-5 py-2 rounded-md font-bold rubik-font cursor-pointer"
                 >
                   Sign in
                 </button>

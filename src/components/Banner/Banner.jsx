@@ -8,6 +8,7 @@ import hero from "../../assets/hero.png";
 import arow from "../../assets/arow.png";
 import SpecialOffer from "../../assets/Special Offer.png";
 import downlode from "../../assets/Download App_.png";
+import { Link } from "react-router";
 const Banner = () => {
   return (
     <div>
@@ -63,9 +64,9 @@ const Banner = () => {
             freshest and most flavorful fruits and vegetables
           </p>
           <div className="relative w-fit">
-            <button className="btn font-bold mt-5 px-5 py-3 bg-[#FF6A1A] text-white rounded-lg hover:bg-[#fc6412] cursor-pointer">
+            <Link to={'/shop'} className="btn font-bold mt-5 px-5 py-3 bg-[#FF6A1A] text-white rounded-lg hover:bg-[#fc6412] cursor-pointer">
               Shop Now
-            </button>
+            </Link>
           </div>
           <div className="flex">
             <div className="ml-20 md:ml-10 lg:ml-20 mr-10 md:mr-5 lg:mr-6 hidden md:block">

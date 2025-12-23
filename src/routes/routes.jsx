@@ -6,12 +6,14 @@ import ProductDetails from "../pages/ProductDetails/ProductDetails";
 import Dashboard from "../layouts/Dashboard";
 import ProductAdeed from "../pages/Dashboard/ProductAdeed";
 import AllProduct from "../pages/Dashboard/AllProduct";
+import ErrorPage from "../pages/ErrorPage/ErrorPage";
 
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <ErrorPage />,
     children: [
         {
             index: true,
